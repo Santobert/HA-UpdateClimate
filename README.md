@@ -10,7 +10,7 @@ Download the hacs.py file from inside the python_scripts directory here to your 
 
 This python script sets `hvac_mode` and `preset_mode` according to the specified sensors and time.
 
-![BPMN](/img/bpmn.png)
+![BPMN](bpmn.png)
 
 The `hvac_mode` will be _off_ when:
 
