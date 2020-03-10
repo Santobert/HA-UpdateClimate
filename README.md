@@ -3,7 +3,7 @@
 Python script to update climate devices.
 This python script sets `hvac_mode` and `preset_mode` according to the specified sensors and time.
 
-![BPMN](/img/bpmn.png)
+![BPMN](/img/bpmn.gif)
 
 The `hvac_mode` will be _off_ when:
 
