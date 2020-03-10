@@ -1,7 +1,3 @@
-# HA-UpdateClimate
-Python script to update climate devices
-
-```yaml
 update_climate:
   description: Change the hvac mode of the given climate device.
   fields:
@@ -25,4 +21,3 @@ update_climate:
     heating_to_hour:
       description: End time to which the heating is to last.
       example: 17
-```
