@@ -5,7 +5,10 @@ SENSORS_WINDOWS = data.get("windows", [])
 SENSOR_PRESENCE = data.get("sensor_presence", None)
 HEATING_FROM_HOUR = data.get("heating_from_hour", None)
 HEATING_TO_HOUR = data.get("heating_to_hour", None)
+ACTIVE_MODE = data.get("active_mode", "heat")
+AWAY_PRESET = data.get("away_preset", "Heat Eco")
 SERVICE_DATA = {"entity_id": ENTITY_ID}
+
 
 
 def is_time_between(begin_time, end_time) -> bool:
@@ -45,11 +48,11 @@ else:
         )
     ):
         # The heater should be in heating mode
-        logger.info("Set %s to Heat", ENTITY_ID)
-        SERVICE_DATA["hvac_mode"] = "heat"
+        logger.info("Set %s to %s", ENTITY_ID, ACTIVE_MODE)
+        SERVICE_DATA["hvac_mode"] = ACTIVE_MODE
         hass.services.call(DOMAIN, "set_hvac_mode", SERVICE_DATA, False)
     else:
         # The heater should be in away mode
-        logger.info("Set %s to Heat Eco", ENTITY_ID)
-        SERVICE_DATA["preset_mode"] = "Heat Eco"
+        logger.info("Set %s to %s", ENTITY_ID, AWAY_PRESET)
+        SERVICE_DATA["preset_mode"] = AWAY_PRESET
         hass.services.call(DOMAIN, "set_preset_mode", SERVICE_DATA, False)

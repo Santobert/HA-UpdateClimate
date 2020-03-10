@@ -6,12 +6,10 @@ update_climate:
       example: climate.livingroom
     windows:
       description: The climate will be off when one of these sensors is on.
-      example:
-        [binary_sensor.livingroom_window, binary_sensor.livingroom_balcony door]
+      example: [binary_sensor.livingroom_window, binary_sensor.livingroom_door]
     sensors_off:
       description: The climate will be off when one of these sensors is off.
-      example:
-        [binary_sensor.climate_on, binary_sensor.livingroom_climate_on]
+      example: [binary_sensor.climate_on, binary_sensor.livingroom_climate_on]
     sensor_presence:
       description: The climate will switch to active mode if this sensor is on.
       example: binary_sensor.someone_at_home
@@ -21,3 +19,9 @@ update_climate:
     heating_to_hour:
       description: End time to which the heating is to last.
       example: 17
+    active_mode:
+      description: The hvac_mode when active (defaults to heat)
+      example: heat
+    away_preset:
+      description: The preset_mode when away/eco (defaults to Heat Eco)
+      example: away
