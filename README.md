@@ -1,6 +1,13 @@
 # HA-UpdateClimate
 
 Python script to update climate devices.
+
+## Installation
+
+Download the hacs.py file from inside the python_scripts directory here to your local python_scripts directory, then reload python_scripts in Home Assistant.
+
+## Usage
+
 This python script sets `hvac_mode` and `preset_mode` according to the specified sensors and time.
 
 ![BPMN](/img/bpmn.gif)
@@ -14,6 +21,8 @@ In all other cases the `hvac_mode` will be the one specified in `active_mode`.
 The `preset_mode` is None if the `sensor_presence` is _on_ or not given and the current time is between `heating_from_hour` and `heating_to_hour`.
 Otherwise the `preset_mode` is the one specified under `away_mode`.
 If one of the specifications `heating_from_hour` or `heating_to_hour` is not given, the `preset_mode` depends only on the `sensor_presence`.
+
+## Service description
 
 Paste the following into `python_scripts/services.yaml` to enable the service description within HomeAssistant.
 
@@ -47,7 +56,9 @@ update_climate:
       example: away
 ```
 
-Automation example (works with Eurotronic Spirit Z-Wave thermostats):
+## Automation example
+This works with Eurotronic Spirit Z-Wave thermostats.
+To use different devices, you may want to change `active_mode` and `away_preset`.
 
 ```yaml
 - id: 0123456789
