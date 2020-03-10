@@ -30,8 +30,8 @@ If one of the specifications `heating_from_hour` or `heating_to_hour` is not giv
 | sensor_presence   | False    | The climate will switch to active mode if this sensor is on |
 | heating_from_hour | False    | Start time from which heating is to start                   |
 | heating_to_hour   | False    | End time to which the heating is to last                    |
-| active_mode       | False    | The hvac*mode when active *(defaults to heat)\_             |
-| away_preset       | False    | The preset*mode when away/eco *(defaults to Heat Eco)\_     |
+| active_mode       | False    | The hvac_mode when active *(defaults to heat)*              |
+| away_preset       | False    | The preset_mode when away/eco *(defaults to Heat Eco)*      |
 
 ## Example
 
@@ -84,6 +84,3 @@ To use different devices, you may want to change `active_mode` and `away_preset`
         heating_to_hour: 23
       service: python_script.update_climate
 ```
-
-As one can see, the livingroom will be heated between 8am and 11pm if `binary_sensor.presence` is on.
-As soon as `binary_sensor.livingroom_window` turns on or one of `input_boolean.livingroom_climate` or `binary_sensor.all_climates_on` turns off, the thermostat will be off as well.
