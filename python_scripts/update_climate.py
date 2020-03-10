@@ -10,7 +10,6 @@ AWAY_PRESET = data.get("away_preset", "Heat Eco")
 SERVICE_DATA = {"entity_id": ENTITY_ID}
 
 
-
 def is_time_between(begin_time, end_time) -> bool:
     check_time = dt_util.now().time()
     if begin_time < end_time:
@@ -18,7 +17,11 @@ def is_time_between(begin_time, end_time) -> bool:
     else:  # crosses midnight
         return check_time >= begin_time or check_time <= end_time
 
+# validate input
+if not ENTITY_ID:
+    logger.error("You have to set an entity_id")
 
+# extract states
 bool_off = False
 for sensor_off in SENSORS_OFF:
     if hass.states.is_state(sensor_off, "off"):
@@ -28,12 +31,14 @@ for window in SENSORS_WINDOWS:
     if hass.states.is_state(window, "on"):
         bool_off = True
 
+# presence is true if not set or unavailable
 bool_presence = (
     True
     if SENSOR_PRESENCE is None
     else not hass.states.is_state(SENSOR_PRESENCE, "off")
 )
 
+# set modes
 if bool_off:
     # The heater should be off
     logger.info("Set %s to Off", ENTITY_ID)
