@@ -1,4 +1,5 @@
 # HA-UpdateClimate
+
 Python script to update climate devices.
 
 ## Installation
@@ -21,41 +22,36 @@ The `preset_mode` is None if the `sensor_presence` is _on_ or not given and the 
 Otherwise the `preset_mode` is the one specified under `away_mode`.
 If one of the specifications `heating_from_hour` or `heating_to_hour` is not given, the `preset_mode` depends only on the `sensor_presence`.
 
-## Service description
+| Name              | Required | Description                                                 |
+| ----------------- | -------- | ----------------------------------------------------------- |
+| entity_id         | True     | The climates enitity_id                                     |
+| windows           | False    | The climate will be off when one of these sensors is on     |
+| sensors_off       | False    | The climate will be off when one of these sensors is off    |
+| sensor_presence   | False    | The climate will switch to active mode if this sensor is on |
+| heating_from_hour | False    | Start time from which heating is to start                   |
+| heating_to_hour   | False    | End time to which the heating is to last                    |
+| active_mode       | False    | The hvac*mode when active *(defaults to heat)\_             |
+| away_preset       | False    | The preset*mode when away/eco *(defaults to Heat Eco)\_     |
 
-Paste the following into `python_scripts/services.yaml` to enable the service description within HomeAssistant.
+## Example
 
 ```yaml
-update_climate:
-  description: Change the hvac mode of the given climate device.
-  fields:
-    enitity_id:
-      description: The climates enitity_id
-      example: climate.livingroom
-    windows:
-      description: The climate will be off when one of these sensors is on.
-      example: [binary_sensor.livingroom_window, binary_sensor.livingroom_door]
-    sensors_off:
-      description: The climate will be off when one of these sensors is off.
-      example: [binary_sensor.climate_on, binary_sensor.livingroom_climate_on]
-    sensor_presence:
-      description: The climate will switch to active mode if this sensor is on.
-      example: binary_sensor.someone_at_home
-    heating_from_hour:
-      description: Start time from which heating is to start
-      example: 8
-    heating_to_hour:
-      description: End time to which the heating is to last.
-      example: 17
-    active_mode:
-      description: The hvac_mode when active (defaults to heat)
-      example: heat
-    away_preset:
-      description: The preset_mode when away/eco (defaults to Heat Eco)
-      example: away
+enitity_id: climate.livingroom
+windows:
+  - binary_sensor.livingroom_window
+  - binary_sensor.livingroom_door
+sensors_off:
+  - binary_sensor.climate_on
+  - binary_sensor.livingroom_climate_on
+sensor_presence: binary_sensor.someone_at_home
+heating_from_hour: 8
+heating_to_hour: 17
+active_mode: heat
+away_preset: away
 ```
 
 ## Automation example
+
 This works with Eurotronic Spirit Z-Wave thermostats.
 To use different devices, you may want to change `active_mode` and `away_preset`.
 
@@ -78,14 +74,14 @@ To use different devices, you may want to change `active_mode` and `away_preset`
   action:
     - data:
         entity_id: climate.livingroom
-        heating_from_hour: 8
-        heating_to_hour: 23
-        sensor_presence: binary_sensor.presence
+        windows:
+          - binary_sensor.livingroom_window
         sensors_off:
           - input_boolean.livingroom_climate
           - binary_sensor.all_climates_on
-        windows:
-          - binary_sensor.livingroom_window
+        sensor_presence: binary_sensor.presence
+        heating_from_hour: 8
+        heating_to_hour: 23
       service: python_script.update_climate
 ```
 
