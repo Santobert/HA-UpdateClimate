@@ -1,5 +1,4 @@
 # HA-UpdateClimate
-
 Python script to update climate devices.
 
 ## Installation
@@ -10,7 +9,7 @@ Download the hacs.py file from inside the python_scripts directory here to your 
 
 This python script sets `hvac_mode` and `preset_mode` according to the specified sensors and time.
 
-![BPMN](/img/bpmn.gif)
+![BPMN](/img/bpmn.png)
 
 The `hvac_mode` will be _off_ when:
 
