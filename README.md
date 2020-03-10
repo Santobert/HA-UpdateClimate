@@ -3,7 +3,7 @@
 Python script to update climate devices.
 This python script sets `hvac_mode` and `preset_mode` according to the specified sensors and time.
 
-The `hcav_mode` will be _off_ when:
+The `hvac_mode` will be _off_ when:
 
 - At least one window is open
 - At least one of the given `sensors_off` is _off_
