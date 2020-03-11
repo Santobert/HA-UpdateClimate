@@ -2,5 +2,5 @@
     "name": "UpdateClimate",
     "render_readme": true,
     "domains": "climate",
-    "homeassistant": 0.47.0
+    "homeassistant": "0.47.0"
 }
