@@ -38,11 +38,14 @@ bool_presence = (
     else not hass.states.is_state(SENSOR_PRESENCE, "off")
 )
 
+state_climate = hass.states.get(ENTITY_ID)
+
 # set modes
 if bool_off:
     # The heater should be off
     logger.info("Set %s to Off", ENTITY_ID)
-    hass.services.call(DOMAIN, "turn_off", SERVICE_DATA, False)
+    if state_climate.state != "off":
+        hass.services.call(DOMAIN, "turn_off", SERVICE_DATA, False)
 else:
     # The heater should be on
     if bool_presence and (
@@ -55,9 +58,11 @@ else:
         # The heater should be in heating mode
         logger.info("Set %s to %s", ENTITY_ID, ACTIVE_MODE)
         SERVICE_DATA["hvac_mode"] = ACTIVE_MODE
-        hass.services.call(DOMAIN, "set_hvac_mode", SERVICE_DATA, False)
+        if state_climate.state != ACTIVE_MODE or state_climate.preset_mode != "None":
+            hass.services.call(DOMAIN, "set_hvac_mode", SERVICE_DATA, False)
     else:
         # The heater should be in away mode
         logger.info("Set %s to %s", ENTITY_ID, AWAY_PRESET)
         SERVICE_DATA["preset_mode"] = AWAY_PRESET
-        hass.services.call(DOMAIN, "set_preset_mode", SERVICE_DATA, False)
+        if state_climate.state != ACTIVE_MODE or state_climate.preset_mode != AWAY_PRESET:
+            hass.services.call(DOMAIN, "set_preset_mode", SERVICE_DATA, False)
