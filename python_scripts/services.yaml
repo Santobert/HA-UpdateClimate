@@ -19,9 +19,9 @@ update_climate:
     heating_to_hour:
       description: End time to which the heating is to last.
       example: 17
-    active_mode:
+    hvac_active:
       description: The hvac_mode when active (defaults to heat)
       example: heat
-    away_preset:
+    preset_away:
       description: The preset_mode when away/eco (defaults to Heat Eco)
       example: away

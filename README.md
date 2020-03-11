@@ -17,7 +17,7 @@ The `hvac_mode` will be _off_ when:
 - At least one window is open
 - At least one of the given `sensors_off` is _off_
 
-In all other cases the `hvac_mode` will be the one specified in `active_mode`.
+In all other cases the `hvac_mode` will be the one specified in `hvac_active`.
 The `preset_mode` is None if the `sensor_presence` is _on_ or not given and the current time is between `heating_from_hour` and `heating_to_hour`.
 Otherwise the `preset_mode` is the one specified under `away_mode`.
 If one of the specifications `heating_from_hour` or `heating_to_hour` is not given, the `preset_mode` depends only on the `sensor_presence`.
@@ -30,8 +30,8 @@ If one of the specifications `heating_from_hour` or `heating_to_hour` is not giv
 | sensor_presence   | False    | The climate will switch to active mode if this sensor is on |
 | heating_from_hour | False    | Start time from which heating is to start                   |
 | heating_to_hour   | False    | End time to which the heating is to last                    |
-| active_mode       | False    | The hvac_mode when active *(defaults to heat)*              |
-| away_preset       | False    | The preset_mode when away/eco *(defaults to Heat Eco)*      |
+| hvac_active       | False    | The hvac_mode when active *(defaults to heat)*              |
+| preset_away       | False    | The preset_mode when away/eco *(defaults to Heat Eco)*      |
 
 ## Example
 
@@ -46,14 +46,14 @@ sensors_off:
 sensor_presence: binary_sensor.someone_at_home
 heating_from_hour: 8
 heating_to_hour: 17
-active_mode: heat
-away_preset: away
+hvac_active: heat
+preset_away: away
 ```
 
 ## Automation example
 
 This works with Eurotronic Spirit Z-Wave thermostats.
-To use different devices, you may want to change `active_mode` and `away_preset`.
+To use different devices, you may want to change `hvac_active` and `preset_away`.
 
 ```yaml
 - id: 0123456789
