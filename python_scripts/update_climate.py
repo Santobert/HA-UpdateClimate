@@ -42,6 +42,9 @@ bool_presence = (
 )
 
 state_climate = hass.states.get(ENTITY_ID)
+logger.info("entity: %s", ENTITY_ID)
+logger.info("state: %s", state_climate.state)
+logger.info("state: %s", state_climate.preset_mode)
 
 # set modes
 if bool_off:
