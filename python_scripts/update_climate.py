@@ -7,6 +7,8 @@ HEATING_FROM_HOUR = data.get("heating_from_hour", None)
 HEATING_TO_HOUR = data.get("heating_to_hour", None)
 ACTIVE_MODE = data.get("active_mode", "heat")
 AWAY_PRESET = data.get("away_preset", "Heat Eco")
+NONE_PRESET = "None"
+OFF_MODE = "off"
 SERVICE_DATA = {"entity_id": ENTITY_ID}
 
 
@@ -16,6 +18,7 @@ def is_time_between(begin_time, end_time) -> bool:
         return check_time >= begin_time and check_time <= end_time
     else:  # crosses midnight
         return check_time >= begin_time or check_time <= end_time
+
 
 # validate input
 if not ENTITY_ID:
@@ -44,8 +47,10 @@ state_climate = hass.states.get(ENTITY_ID)
 if bool_off:
     # The heater should be off
     logger.info("Set %s to Off", ENTITY_ID)
-    if state_climate.state != "off":
+    if state_climate.state != OFF_MODE:
         hass.services.call(DOMAIN, "turn_off", SERVICE_DATA, False)
+    else:
+        logger.info("The climate is already in the desired state")
 else:
     # The heater should be on
     if bool_presence and (
@@ -58,11 +63,21 @@ else:
         # The heater should be in heating mode
         logger.info("Set %s to %s", ENTITY_ID, ACTIVE_MODE)
         SERVICE_DATA["hvac_mode"] = ACTIVE_MODE
-        if state_climate.state != ACTIVE_MODE or state_climate.preset_mode != "None":
+        if (
+            state_climate.state != ACTIVE_MODE
+            or state_climate.preset_mode != NONE_PRESET
+        ):
             hass.services.call(DOMAIN, "set_hvac_mode", SERVICE_DATA, False)
+        else:
+            logger.info("The climate is already in the desired state")
     else:
         # The heater should be in away mode
         logger.info("Set %s to %s", ENTITY_ID, AWAY_PRESET)
         SERVICE_DATA["preset_mode"] = AWAY_PRESET
-        if state_climate.state != ACTIVE_MODE or state_climate.preset_mode != AWAY_PRESET:
+        if (
+            state_climate.state != ACTIVE_MODE
+            or state_climate.preset_mode != AWAY_PRESET
+        ):
             hass.services.call(DOMAIN, "set_preset_mode", SERVICE_DATA, False)
+        else:
+            logger.info("The climate is already in the desired state")
