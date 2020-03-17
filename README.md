@@ -1,7 +1,7 @@
 # HA-UpdateClimate
 
 [![hacs](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat)](https://github.com/custom-components/hacs)
-[![license](https://img.shields.io/github/license/Santobert/HA-UpdateClimate.svg?style=flat)](hhttps://github.com/Santobert/HA-UpdateClimate/blob/master/LICENSE)
+[![license](https://img.shields.io/github/license/Santobert/HA-UpdateClimate.svg?style=flat)](https://github.com/Santobert/HA-UpdateClimate/blob/master/LICENSE)
 [![release](https://img.shields.io/github/v/release/Santobert/HA-UpdateClimate.svg?style=flat)](https://github.com/Santobert/HA-UpdateClimate/releases)
 [![last-commit](https://img.shields.io/github/last-commit/Santobert/HA-UpdateClimate.svg?style=flat)](https://github.com/Santobert/HA-UpdateClimate/commits/master)
 [![language](https://img.shields.io/github/languages/top/Santobert/HA-UpdateClimate.svg?style=flat)](https://github.com/Santobert/HA-UpdateClimate)
