@@ -40,25 +40,32 @@ If one of the specifications `heating_from_hour` or `heating_to_hour` is not giv
 | hvac_active       | False    | The hvac_mode when active *(defaults to heat)*              |
 | preset_away       | False    | The preset_mode when away/eco *(defaults to Heat Eco)*      |
 
-## Example
+## Service Example
+
+The following is the content of a [service call](https://www.home-assistant.io/docs/scripts/service-calls/).
+This example includes all possible parameters.
+You may not need them all.
 
 ```yaml
-enitity_id: climate.livingroom
-windows:
-  - binary_sensor.livingroom_window
-  - binary_sensor.livingroom_door
-sensors_off:
-  - binary_sensor.climate_on
-  - binary_sensor.livingroom_climate_on
-sensor_presence: binary_sensor.someone_at_home
-heating_from_hour: 8
-heating_to_hour: 17
-hvac_active: heat
-preset_away: away
+service: python_script.update_climate
+data:
+  enitity_id: climate.livingroom
+  windows:
+    - binary_sensor.livingroom_window
+    - binary_sensor.livingroom_door
+  sensors_off:
+    - binary_sensor.climate_on
+    - binary_sensor.livingroom_climate_on
+  sensor_presence: binary_sensor.someone_at_home
+  heating_from_hour: 8
+  heating_to_hour: 17
+  hvac_active: heat
+  preset_away: away
 ```
 
 ## Automation example
 
+The following is the content of an [automation](https://www.home-assistant.io/docs/automation/).
 This works with Eurotronic Spirit Z-Wave thermostats.
 To use different devices, you may want to change `hvac_active` and `preset_away`.
 
