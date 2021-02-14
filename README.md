@@ -14,7 +14,7 @@ Python script to update climate devices based on sensors and time.
 Install via HACS (recommended) or download the `update_climate.py` file from inside the python_scripts directory here to your local python_scripts directory, then reload python_scripts in Home Assistant.
 
 There is a blueprint that simplifies the use of this script:
-<https://gist.github.com/Santobert/dfe4602e96dfb14c9d9e17b433ed8d3b>
+<https://github.com/Santobert/HA-UpdateClimate/blob/master/blueprints/update_climate.yaml>
 
 ## Usage
 
