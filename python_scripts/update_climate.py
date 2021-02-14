@@ -47,8 +47,9 @@ if hass.states.is_state(SENSOR_ON, STATE_OFF):
 bool_presence = (
     True
     if SENSOR_PRESENCE is None
-    else not hass.states.is_state(SENSOR_PRESENCE, SENSOR_OFF)
+    else not hass.states.is_state(SENSOR_PRESENCE, STATE_OFF)
 )
+logger.debug(f"bool presence is {bool_presence}")
 
 state_climate = hass.states.get(ENTITY_ID)
 current_state = state_climate.state
