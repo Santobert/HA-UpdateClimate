@@ -74,7 +74,7 @@ trigger:
 condition: []
 
 action:
-  - service: python_script.climate_scheduler
+  - service: python_script.update_climate
     data:
       entity_id: !input climate_entity
       heating_from_hour: !input heating_from
