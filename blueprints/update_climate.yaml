@@ -1,0 +1,86 @@
+blueprint:
+  name: Update Climate
+  description: Update climate based on sensors and time
+  domain: automation
+  source_url: https://github.com/Santobert/HA-UpdateClimate/blob/master/blueprints/update_climate.yaml
+  input:
+    climate_entity:
+      name: Climate
+      selector:
+        entity:
+          domain: climate
+    sensor_off:
+      name: Sensor Off
+      selector:
+        entity:
+          domain: binary_sensor
+    sensor_on:
+      name: Sensor On
+      selector:
+        entity:
+          domain: binary_sensor
+    sensor_presence:
+      name: Presence Sensor
+      selector:
+        entity:
+          domain: binary_sensor
+          device_class: presence
+    heating_from:
+      name: Heating from hour
+      default: 8
+      selector:
+        number:
+          min: 0
+          max: 23
+          unit_of_measurement: hour
+    heating_to:
+      name: Heating to hour
+      default: 22
+      selector:
+        number:
+          min: 0
+          max: 23
+          unit_of_measurement: hour
+    high_temp:
+      name: High temperature
+      default: 24
+      selector:
+        number:
+          min: 15
+          max: 30
+          unit_of_measurement: degrees
+    low_temp:
+      name: Low temperature
+      default: 20
+      selector:
+        number:
+          min: 15
+          max: 30
+          unit_of_measurement: degrees
+
+mode: single
+
+trigger:
+  - hours: '*'
+    minutes: '1'
+    platform: time_pattern
+  - entity_id: !input sensor_presence
+    platform: state
+  - entity_id: !input sensor_on
+    platform: state
+  - entity_id: !input sensor_off
+    platform: state
+
+condition: []
+
+action:
+  - service: python_script.climate_scheduler
+    data:
+      entity_id: !input climate_entity
+      heating_from_hour: !input heating_from
+      heating_to_hour: !input heating_to
+      sensor_presence: !input sensor_presence
+      sensor_off: !input sensor_off
+      sensor_on: !input sensor_on
+      high_temp: !input high_temp
+      low_temp: !input low_temp
