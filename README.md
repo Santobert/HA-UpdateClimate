@@ -68,8 +68,6 @@ data:
 ## Automation example
 
 The following is the content of an [automation](https://www.home-assistant.io/docs/automation/).
-This works with Eurotronic Spirit Z-Wave thermostats.
-To use different devices, you may want to change `hvac_active` and `preset_away`.
 
 ```yaml
 - id: 0123456789
