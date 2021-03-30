@@ -29,10 +29,11 @@ blueprint:
       name: Grace Period
       selector:
         number:
-          min: 0
-          max: 120
+          min: 0.0
+          max: 120.0
           unit_of_measurement: s
           mode: box
+          step: 1.0
     heating_from:
       name: Heating from hour
       default: 8
