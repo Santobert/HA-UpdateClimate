@@ -25,62 +25,80 @@ blueprint:
         entity:
           domain: binary_sensor
           device_class: presence
+    grace_period:
+      name: Grace Period
+      selector:
+        number:
+          min: 0
+          max: 120
+          unit_of_measurement: s
+          mode: box
     heating_from:
       name: Heating from hour
       default: 8
       selector:
         number:
-          min: 0
-          max: 23
+          min: 0.0
+          max: 23.0
           unit_of_measurement: hour
+          step: 1.0
+          mode: slider
     heating_to:
       name: Heating to hour
       default: 22
       selector:
         number:
-          min: 0
-          max: 23
+          min: 0.0
+          max: 23.0
           unit_of_measurement: hour
+          step: 1.0
+          mode: slider
     high_temp:
       name: High temperature
       default: 24
       selector:
         number:
-          min: 15
-          max: 30
+          min: 15.0
+          max: 30.0
           unit_of_measurement: degrees
+          step: 1.0
+          mode: slider
     low_temp:
       name: Low temperature
       default: 20
       selector:
         number:
-          min: 15
-          max: 30
+          min: 15.0
+          max: 30.0
           unit_of_measurement: degrees
-
+          step: 1.0
+          mode: slider
 mode: single
-
 trigger:
-  - hours: '*'
-    minutes: '1'
-    platform: time_pattern
-  - entity_id: !input sensor_presence
-    platform: state
-  - entity_id: !input sensor_on
-    platform: state
-  - entity_id: !input sensor_off
-    platform: state
-
+- hours: '*'
+  minutes: '1'
+  platform: time_pattern
+- entity_id: !input 'sensor_presence'
+  platform: state
+  for:
+    seconds: !input 'grace_period'
+- entity_id: !input 'sensor_on'
+  platform: state
+  for:
+    seconds: !input 'grace_period'
+- entity_id: !input 'sensor_off'
+  platform: state
+  for:
+    seconds: !input 'grace_period'
 condition: []
-
 action:
-  - service: python_script.update_climate
-    data:
-      entity_id: !input climate_entity
-      heating_from_hour: !input heating_from
-      heating_to_hour: !input heating_to
-      sensor_presence: !input sensor_presence
-      sensor_off: !input sensor_off
-      sensor_on: !input sensor_on
-      high_temp: !input high_temp
-      low_temp: !input low_temp
+- service: python_script.update_climate
+  data:
+    entity_id: !input 'climate_entity'
+    heating_from_hour: !input 'heating_from'
+    heating_to_hour: !input 'heating_to'
+    sensor_presence: !input 'sensor_presence'
+    sensor_off: !input 'sensor_off'
+    sensor_on: !input 'sensor_on'
+    high_temp: !input 'high_temp'
+    low_temp: !input 'low_temp'
